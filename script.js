@@ -100,10 +100,25 @@ const GameController = (function () {
       Gameboard.resetBoard();
       currentPlayer = playerOne;
       gameOver = false;
-
-
     },
   };
 })();
 
+const DisplayBoard = (function () {
+  const boardContainer = document.querySelector("#board-container");
 
+  return {
+    renderBoard: function () {
+      boardContainer.innerHTML = "";
+      for (let i = 0; i < 9; i++) {
+        const square = document.createElement("button");
+        square.classList.add("square");
+        square.dataset.index = i;
+        square.textContent = "";
+        boardContainer.appendChild(square);
+      }
+    },
+  };
+})();
+
+DisplayBoard.renderBoard();
