@@ -96,13 +96,14 @@ const GameController = (function () {
       }
     },
     getWinner: () => checkWinner(),
-    startNewGame: () => resetBoard(),
+    startNewGame: () => {
+      Gameboard.resetBoard();
+      currentPlayer = playerOne;
+      gameOver = false;
+
+
+    },
   };
 })();
 
 
-GameController.playTurn(0);  // X top-left
-GameController.playTurn(1);  // O top-middle
-GameController.playTurn(2);  // X top-right
-GameController.playTurn(4);  // O center
-GameController.playTurn(3);
