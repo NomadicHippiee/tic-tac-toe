@@ -24,6 +24,16 @@ header {
 }
 main {
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#board-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
 }
 
 footer {
