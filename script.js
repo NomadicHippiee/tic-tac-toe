@@ -116,6 +116,12 @@ const DisplayBoard = (function () {
         square.dataset.index = i;
         square.textContent = "";
         boardContainer.appendChild(square);
+        square.addEventListener("click", function(){
+          const index = Number(square.dataset.index);
+          const board = Gameboard.getBoard();
+          GameController.playTurn(index);
+          square.textContent = board[index];
+        })
       }
     },
   };
