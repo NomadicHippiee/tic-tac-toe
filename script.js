@@ -14,6 +14,9 @@ const Gameboard = (function () {
       }
     },
     getBoard: () => board,
+    resetBoard: function () {
+      board.fill(null);
+    },
   };
 })();
 
@@ -93,8 +96,13 @@ const GameController = (function () {
       }
     },
     getWinner: () => checkWinner(),
+    startNewGame: () => resetBoard(),
   };
 })();
 
 
-
+GameController.playTurn(0);  // X top-left
+GameController.playTurn(1);  // O top-middle
+GameController.playTurn(2);  // X top-right
+GameController.playTurn(4);  // O center
+GameController.playTurn(3);
