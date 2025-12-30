@@ -11,21 +11,26 @@
       <div class="player-input">
         <label for="player-one">Player 1:</label>
         <input type="text" id="player-one" placeholder="Name" />
-        <button>Enter</button>
+        <button class="enter-name" data-player="1">Enter</button>
       </div>
       <h1>Tic Tac Toe</h1>
       <div class="player-input">
         <label for="player-two">Player 2:</label>
         <input type="text" id="player-two" placeholder="Name" />
-        <button>Enter</button>
+        <button class="enter-name" data-player="2">Enter</button>
       </div>
     </header>
     <main>
         <div id="board-container"></div>
     </main>
     <footer>
-        <div class="current-player"></div>
-        <div class="round-output"></div>
+        <div class="current-player">
+            <h2>Current Player:</h2>
+            <p>Player 1</p>
+        </div>
+        <div class="round-output">
+            Start Game
+        </div>
         <div class="reset-btn">
             <button>Reset Board</button>
         </div>
