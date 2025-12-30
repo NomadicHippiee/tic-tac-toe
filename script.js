@@ -30,6 +30,7 @@ const GameController = (function () {
   const playerOne = Player("Player 1", "X");
   const playerTwo = Player("Player 2", "O");
   let currentPlayer = playerOne;
+  let gameOver = false;
 
   const winningCombinations = [
     [0, 1, 2],
@@ -61,15 +62,27 @@ const GameController = (function () {
     getCurrentPlayerName: () => currentPlayer.getName(),
     getCurrentPlayerMark: () => currentPlayer.getMark(),
     playTurn: function (index) {
+      if (gameOver) {
+        console.log("Game is over!");
+        return;
+      }
       const mark = currentPlayer.getMark();
       const success = Gameboard.placeMark(index, mark);
 
       if (success) {
-        if (currentPlayer === playerOne) {
-          currentPlayer = playerTwo;
+        const winner = checkWinner();
+        if (winner !== null) {
+          gameOver = true;
+          console.log(winner + " wins!");
         } else {
-          currentPlayer = playerOne;
+          if (currentPlayer === playerOne) {
+            currentPlayer = playerTwo;
+          } else {
+            currentPlayer = playerOne;
+          }
         }
+      } else {
+        console.log("Spot already taken!");
       }
     },
     getWinner: () => checkWinner(),
