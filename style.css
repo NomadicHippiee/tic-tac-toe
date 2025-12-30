@@ -36,6 +36,11 @@ main {
     gap: 5px;
 }
 
+.square {
+  width: 100px;
+  aspect-ratio: 1 / 1;
+}   
+
 footer {
   display: flex;
   flex: 0 0 auto;
