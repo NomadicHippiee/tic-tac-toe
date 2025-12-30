@@ -75,10 +75,17 @@ const GameController = (function () {
           gameOver = true;
           console.log(winner + " wins!");
         } else {
-          if (currentPlayer === playerOne) {
-            currentPlayer = playerTwo;
+          const board = Gameboard.getBoard();
+
+          if (board.every((spot) => spot !== null)) {
+            console.log("It's a tie!");
+            gameOver = true;
           } else {
-            currentPlayer = playerOne;
+            if (currentPlayer === playerOne) {
+              currentPlayer = playerTwo;
+            } else {
+              currentPlayer = playerOne;
+            }
           }
         }
       } else {
@@ -88,3 +95,6 @@ const GameController = (function () {
     getWinner: () => checkWinner(),
   };
 })();
+
+
+
