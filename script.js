@@ -66,7 +66,7 @@ const GameController = (function () {
     getCurrentPlayerMark: () => currentPlayer.getMark(),
     playTurn: function (index) {
       if (gameOver) {
-        console.log("Game is over!");
+        DisplayBoard.updateOutput("Game is over!");
         return;
       }
       const mark = currentPlayer.getMark();
@@ -76,23 +76,27 @@ const GameController = (function () {
         const winner = checkWinner();
         if (winner !== null) {
           gameOver = true;
-          console.log(winner + " wins!");
+          DisplayBoard.updateOutput(winner + " wins!");
         } else {
           const board = Gameboard.getBoard();
 
           if (board.every((spot) => spot !== null)) {
-            console.log("It's a tie!");
+            DisplayBoard.updateOutput("It's a tie!");
             gameOver = true;
           } else {
             if (currentPlayer === playerOne) {
               currentPlayer = playerTwo;
+             
             } else {
               currentPlayer = playerOne;
+              
             }
+            DisplayBoard.updatePlayerDisplay();
+            DisplayBoard.updateOutput("") 
           }
         }
       } else {
-        console.log("Spot already taken!");
+        DisplayBoard.updateOutput("Spot already taken!");
       }
     },
     getWinner: () => checkWinner(),
@@ -106,6 +110,8 @@ const GameController = (function () {
 
 const DisplayBoard = (function () {
   const boardContainer = document.querySelector("#board-container");
+  const updatePlayer = document.querySelector("#update-player");
+  const updateElement = document.querySelector(".round-output")
 
   return {
     renderBoard: function () {
@@ -124,7 +130,18 @@ const DisplayBoard = (function () {
         })
       }
     },
+    updatePlayerDisplay: function() {
+      const name = GameController.getCurrentPlayerName();
+      updatePlayer.textContent = name;
+    },
+    updateOutput: function(message){
+      updateElement.textContent = message;
+
+
+    }
   };
 })();
 
 DisplayBoard.renderBoard();
+DisplayBoard.updatePlayerDisplay();
+DisplayBoard.updateOutput("Start Game!")
