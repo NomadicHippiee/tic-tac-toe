@@ -30,8 +30,8 @@ const Player = (name, mark) => {
 };
 
 const GameController = (function () {
-  const playerOne = Player("Player 1", "X");
-  const playerTwo = Player("Player 2", "O");
+  let playerOne = Player("Player 1", "X");
+  let playerTwo = Player("Player 2", "O");
   let currentPlayer = playerOne;
   let gameOver = false;
 
@@ -103,6 +103,16 @@ const GameController = (function () {
       currentPlayer = playerOne;
       gameOver = false;
     },
+    setPlayerNameOne: function (newName) {
+      playerOne = Player(newName.trim() || "Player 1", "X");
+      currentPlayer = playerOne;
+      DisplayBoard.updatePlayerDisplay();
+    },
+    setPlayerNameTwo: function (newName) {
+      playerTwo = Player(newName.trim() || "Player 2", "O");
+      currentPlayer = playerOne;
+      DisplayBoard.updatePlayerDisplay();
+    },
   };
 })();
 
@@ -111,6 +121,7 @@ const DisplayBoard = (function () {
   const updatePlayer = document.querySelector("#update-player");
   const updateElement = document.querySelector(".round-output");
   const resetBtn = document.querySelector(".reset-btn");
+  const enterNameButtons = document.querySelectorAll(".enter-name");
 
   return {
     renderBoard: function () {
@@ -144,6 +155,23 @@ const DisplayBoard = (function () {
         DisplayBoard.updateOutput("Start Game!");
       });
     },
+    nameInputs: function () {
+      enterNameButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const input = button.parentElement.querySelector("input");
+          const playerName = input.value;
+          const player = button.dataset.player;
+
+          if (player === "1") {
+            GameController.setPlayerNameOne(playerName);
+          } else {
+            GameController.setPlayerNameTwo(playerName);
+          }
+
+          input.value = "";
+        });
+      });
+    },
   };
 })();
 
@@ -151,3 +179,4 @@ DisplayBoard.renderBoard();
 DisplayBoard.updatePlayerDisplay();
 DisplayBoard.updateOutput("Start Game!");
 DisplayBoard.resetButton();
+DisplayBoard.nameInputs();
