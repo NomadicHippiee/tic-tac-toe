@@ -86,13 +86,11 @@ const GameController = (function () {
           } else {
             if (currentPlayer === playerOne) {
               currentPlayer = playerTwo;
-             
             } else {
               currentPlayer = playerOne;
-              
             }
             DisplayBoard.updatePlayerDisplay();
-            DisplayBoard.updateOutput("") 
+            DisplayBoard.updateOutput("");
           }
         }
       } else {
@@ -111,7 +109,8 @@ const GameController = (function () {
 const DisplayBoard = (function () {
   const boardContainer = document.querySelector("#board-container");
   const updatePlayer = document.querySelector("#update-player");
-  const updateElement = document.querySelector(".round-output")
+  const updateElement = document.querySelector(".round-output");
+  const resetBtn = document.querySelector(".reset-btn");
 
   return {
     renderBoard: function () {
@@ -122,26 +121,33 @@ const DisplayBoard = (function () {
         square.dataset.index = i;
         square.textContent = "";
         boardContainer.appendChild(square);
-        square.addEventListener("click", function(){
+        square.addEventListener("click", function () {
           const index = Number(square.dataset.index);
           const board = Gameboard.getBoard();
           GameController.playTurn(index);
           square.textContent = board[index];
-        })
+        });
       }
     },
-    updatePlayerDisplay: function() {
+    updatePlayerDisplay: function () {
       const name = GameController.getCurrentPlayerName();
       updatePlayer.textContent = name;
     },
-    updateOutput: function(message){
+    updateOutput: function (message) {
       updateElement.textContent = message;
-
-
-    }
+    },
+    resetButton: function () {
+      resetBtn.addEventListener("click", function () {
+        GameController.startNewGame();
+        DisplayBoard.renderBoard();
+        DisplayBoard.updatePlayerDisplay();
+        DisplayBoard.updateOutput("Start Game!");
+      });
+    },
   };
 })();
 
 DisplayBoard.renderBoard();
 DisplayBoard.updatePlayerDisplay();
-DisplayBoard.updateOutput("Start Game!")
+DisplayBoard.updateOutput("Start Game!");
+DisplayBoard.resetButton();
